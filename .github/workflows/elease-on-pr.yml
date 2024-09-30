@@ -1,0 +1,56 @@
+name: Create Release on PR Merge
+
+on:
+  pull_request:
+    types: [closed]
+
+jobs:
+  create_release:
+    if: github.event.pull_request.merged == true
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0  # Ensure all tags are fetched
+
+      - name: Get the latest tag
+        id: get_latest_tag
+        run: |
+          latest_tag=$(git describe --tags `git rev-list --tags --max-count=1`)
+          echo "Latest tag: $latest_tag"
+          # If no tag exists, start at v1.0.0
+          if [ -z "$latest_tag" ]; then
+            new_tag="v1.0.0"
+          else
+            # Extract the major, minor, and patch numbers
+            IFS='.' read -r major minor patch <<<"${latest_tag//v/}"
+            # Increment the patch number (for patch releases)
+            patch=$((patch + 1))
+            new_tag="v$major.$minor.$patch"
+          fi
+          echo "New tag: $new_tag"
+          echo "::set-output name=new_tag::$new_tag"
+
+      - name: Create GitHub Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ steps.get_latest_tag.outputs.new_tag }}
+          release_name: "Release ${{ steps.get_latest_tag.outputs.new_tag }}"
+          body: "This release was generated from pull request #${{ github.event.pull_request.number }}."
+          draft: false
+          prerelease: false
+
+      - name: Upload Release Asset
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./disable_wp_updates.zip
+          asset_name: disable_wp_updates.zip
+          asset_content_type: application/zip
