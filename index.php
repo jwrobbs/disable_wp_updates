@@ -3,7 +3,7 @@
 Plugin Name: Disable WP Updates
 Plugin URI: http://wpmasterbuilder.com
 Description: A plugin to disable WordPress updates.
-Version: 1.0.1
+Version: 1.0.2
 Author: Josh Robbs
 License: GPL2
 
