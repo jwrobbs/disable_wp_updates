@@ -15,6 +15,7 @@ namespace Disable_WP_Updates;
 defined( 'ABSPATH' ) || die();
 
 // TEST 3.
+// TEST 4.
 
 add_filter( 'automatic_updater_disabled', '__return_true' );
 add_filter( 'pre_site_transient_update_core', '__return_null' );
