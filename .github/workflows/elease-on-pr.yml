@@ -1,11 +1,11 @@
 name: Create Release on PR Merge
 
-permissions:
-  contents: write
-
 on:
   pull_request:
     types: [closed]
+
+permissions:
+  contents: write  # Ensures the GITHUB_TOKEN has the necessary permissions
 
 jobs:
   create_release:
@@ -35,6 +35,10 @@ jobs:
           fi
           echo "New tag: $new_tag"
           echo "::set-output name=new_tag::$new_tag"
+
+      - name: Zip the plugin
+        run: |
+          zip -r disable_wp_updates.zip . -x '*.git*'  # Creates a ZIP archive of the repo excluding Git files
 
       - name: Create GitHub Release
         id: create_release
