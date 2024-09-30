@@ -1,0 +1,6 @@
+{
+    "name": "jwrobbs/disable_wp_updates",
+    "description": "This disables WP updates. Use at your own risk.",
+    "type": "wordpress-plugin",
+    "require": {}
+}
