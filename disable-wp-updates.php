@@ -46,6 +46,7 @@ function restrict_plugin_theme_installation() {
 	remove_submenu_page( 'themes.php', 'theme-editor.php' ); // Remove Theme Editor.
 }
 
+
 /**
  * Remove the ability to activate themes.
  */
