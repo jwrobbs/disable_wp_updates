@@ -1,3 +1,5 @@
-This is code I threw together from ChatGPT to test a few things.
+This is a quick and dirty update blocker.
 
-It is untested. Use at your own risk.
+No automatic updates should be possible. All GUI update/installation methods should be blocked.
+
+WP CLI and Composer should be the only 2 ways to add/update/remove plugins and themes.

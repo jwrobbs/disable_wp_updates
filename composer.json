@@ -2,6 +2,13 @@
     "name": "jwrobbs/disable_wp_updates",
     "description": "This disables WP updates. Use at your own risk.",
     "type": "wordpress-plugin",
-	"version": "1.0.10",
-    "require": {}
+	"license": "GPL-2.0-or-later",
+	"version": "1.1.0",
+    "require": {},
+	"authors": [
+		{
+			"name": "John Robberts",
+			"homepage": "https://wpmasterbuilder.com"
+		}
+	]
 }
